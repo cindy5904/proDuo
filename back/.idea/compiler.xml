@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="AuthentificationService" />
+        <module name="LivraisonService" />
         <module name="CommandeService" />
         <module name="UserService" />
         <module name="ProductService" />
@@ -19,6 +20,7 @@
       <module name="AuthentificationService" options="-parameters" />
       <module name="CommandeService" options="-parameters" />
       <module name="GatewayService" options="-parameters" />
+      <module name="LivraisonService" options="-parameters" />
       <module name="ProductService" options="-parameters" />
       <module name="UserService" options="-parameters" />
     </option>
