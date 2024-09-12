@@ -36,20 +36,31 @@ public class UserAppController {
 
 
     @PostMapping("login")
-    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDTO) throws NotFoundException {
+    public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequestDTO) {
         try {
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDTO.getEmail(), loginRequestDTO.getPassword()));
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequestDTO.getEmail(), loginRequestDTO.getPassword())
+            );
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            return ResponseEntity.ok(LoginResponseDto.builder().token(generator.generateToken(authentication)).build());
-        }catch (Exception ex) {
-            throw new NotFoundException();
+            String token = generator.generateToken(authentication);
+            return ResponseEntity.ok(LoginResponseDto.builder().token(token).build());
+        } catch (Exception ex) {
+            // Log the exception for better debugging
+            ex.printStackTrace();
+            System.out.println(ex.getMessage());
+            return ResponseEntity.status(401).body("Invalid credentials or other authentication issues");
         }
     }
 
     @PostMapping("register")
     public ResponseEntity<RegisterResponseDto> register(@RequestBody RegisterRequestDto registerRequestDTO) throws UserAlreadyExistException {
+        // Encoder le mot de passe avant d'enregistrer l'utilisateur
         registerRequestDTO.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
         UserApp userApp = userAppService.enregistrerUtilisateur(registerRequestDTO);
         return ResponseEntity.ok(RegisterResponseDto.builder().email(userApp.getEmail()).name(userApp.getName()).role(userApp.getRole().ordinal()).build());
+    }
+    @PostMapping("logout")
+    public ResponseEntity<String> logout() {
+        return ResponseEntity.ok("Déconnexion réussie");
     }
 }

@@ -14,15 +14,15 @@ public class UserApp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_user;
-    private String name;
     @Column(unique = true)
     private String email;
+    private String name;
     private String password;
     private Role role;
 
-    public UserApp(String name, String email, String password, int role) {
-        this.name = name;
+    public UserApp(String email, String name, String password, int role) {
         this.email = email;
+        this.name = name;
         this.password = password;
         this.role = role == 0 ? Role.USER : Role.ADMIN;
     }

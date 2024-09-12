@@ -28,8 +28,8 @@ public class CustomUserDetailService implements UserDetailsService {
             UserApp userApp = userAppOptional.get();
             Set<GrantedAuthority> authorities = new HashSet<>();
             authorities.add(new SimpleGrantedAuthority("user"));
-            return new User(userApp.getEmail(), userApp.getPassword(),authorities);
+            return new User(userApp.getEmail(), userApp.getPassword(), authorities);
         }
-        return null;
+        throw new UsernameNotFoundException("User not found with email: " + email);
     }
 }
