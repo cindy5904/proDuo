@@ -12,5 +12,4 @@ import java.util.List;
 public interface LivraisonRepository extends CrudRepository<Livraison, Long> {
     @Query("SELECT l FROM Livraison l WHERE l.id_commande = :idCommande")
     List<Livraison> findLivraisonsByCommandeId(@Param("idCommande") long idCommande);
-
 }

@@ -1,9 +1,8 @@
-package org.example.commandeservice.dto.CommandeDto;
+package org.example.gatewayservice.dto.CommandeDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.commandeservice.dto.LigneCommandeDto.LigneCommandeDtoRequest;
 
 import java.time.LocalDate;
 import java.util.Set;
